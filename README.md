@@ -15,106 +15,29 @@ then:
 
     cd frontend
 
-    yarn add @rainbow-me/rainbowkit wagmi ethers
+    yarn add connectkit wagmi@0.7.15 ethers
 
 for reference:
 
 [ethers docs](https://docs.ethers.io/v5/)
 [wagmi docs](https://wagmi.sh/)
-[rainbowkit docs](https://www.rainbowkit.com/docs)
+[connectkit](https://docs.family.co/connectkit)
 
 
 
 ## step3 : setup
 
 
-go to _app.tsx
+see pages/_app.tsx
 
-copy as follow
+for setup with  wagmi : [here](https://wagmi.sh/react/getting-started)
 
-```typescript
-
-import type { AppProps } from 'next/app'
-
-import '@rainbow-me/rainbowkit/styles.css';
-
-import {
-  getDefaultWallets,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import {
-  chain,
-  configureChains,
-  createClient,
-  WagmiConfig,
-} from 'wagmi';
-//import { alchemyProvider } from 'wagmi/providers/alchemy';
-//import { infuraProvider } from 'wagmi/providers/infura';
-import { publicProvider } from 'wagmi/providers/public';
-
-
-
-const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.goerli, chain.polygonMumbai],
-  [
-    //   alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
-    //   infuraProvider({ apiKey: process.env.ALCHEMY_ID }),
-    publicProvider()
-  ]
-);
-
-const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
-  chains
-});
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider
-})
-
-export default function App({ Component, pageProps }: AppProps) {
-  <WagmiConfig client={wagmiClient}>
-    <RainbowKitProvider chains={chains}>
-      return <Component {...pageProps} />
-    </RainbowKitProvider>
-  </WagmiConfig>
-
-}
-
-```
-
-for reference check the installation  guide [here](https://www.rainbowkit.com/docs/installation) 
-
-
+for setup with  connectkit : [here](https://docs.family.co/connectkit/getting-started#getting-started-2-implementation)
 
 
 ## step4 : put connect wallet
 
-```typescript
-
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useProvider } from 'wagmi'
-import { useSigner } from 'wagmi'
-
-export default function Home() {
-  return (<>
- <ConnectButton></ConnectButton>
-  </>
-  
-  )
-}
-
-```
-for reference [connect button install guide](https://www.rainbowkit.com/docs/connect-button)
-
-## step5  get provider and signer with wagmi
-
-[how to get to provider](https://wagmi.sh/react/hooks/useProvider)
-
-[ho to get signer](https://wagmi.sh/react/hooks/useSigner)
-
+see pages/index.tsx
 
 ## step 6 add a ui library 
 
@@ -142,4 +65,7 @@ function App() {
 
 ```
 
-then check componets [here](https://chakra-ui.com/docs/components) and add it to forntend as components
+then check components [here](https://chakra-ui.com/docs/components) and add it to forntend as components
+
+
+[here](https://openchakra.app/) you can build chakra components with drag and drop
