@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Box, Heading, Button } from "@chakra-ui/react";
 
 import {
@@ -9,7 +10,7 @@ import { useProvider, useSigner } from "wagmi";
 
 import { Example, Example__factory } from "../../hardhat/typechain-types";
 
-import { useState } from "react";
+
 
 import ethers from "ethers";
 
@@ -45,7 +46,4 @@ export default function Home() {
       </Box>
     </Box>
   );
-}
-function useState(arg0: number): [any, any] {
-  throw new Error("Function not implemented.");
 }
