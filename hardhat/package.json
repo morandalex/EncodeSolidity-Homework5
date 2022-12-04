@@ -1,5 +1,9 @@
 {
-  "name": "EncodeSolidity-Homework3",
+  "name": "encode-solidity-homework-5",
+  "scripts":{
+    "chain":"yarn hardhat chain",
+    "deployLocal":"yarn hardhat run ./scripts/deployLocal.ts"
+  },
   "packageManager": "yarn@3.3.0",
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",
