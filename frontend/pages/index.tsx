@@ -1,45 +1,95 @@
-//library import
-import React, { useState } from 'react';
+//this file is the entry component for nextjs app
+
+// import connect kit ready button
 import {
   ConnectKitButton,
 } from "connectkit";
-import { useProvider, useSigner } from "wagmi";
-import { Lottery__factory, LotteryToken__factory  } from "../../hardhat/typechain-types";
-//ui import
-import { Box, Heading, Button, Text } from "@chakra-ui/react";
+
+//import wagmi hook to know if user is connected or not
+import { useAccount } from "wagmi";
+
+//chakraui ui import
+import { Box, Text, Grid, GridItem } from "@chakra-ui/react";
+
 //custom components import
 import Header from '../components/Header'
-import ExampleComponent from '../components/ExampleComponent'
-import ethers from "ethers";
+import PeopleTable from '../components/PeopleTable';
+import ListFunctions from '../components/ListFunctions';
+
+//custom util functions
+import utils from '../src/utils'
+
+//this is the main component named Home
 export default function Home() {
-  const provider = useProvider();
-  const signer = useSigner();
-  const [number, setNumber] = useState(1);
-  async function add() {
-    console.log("hello world");
-    setNumber(number + 1);
+
+  const { address, isConnecting, isDisconnected } = useAccount()
+
+  const IfConnected = () => {
+    if (isConnecting) return <Text>Connecting…</Text>
+    if (isDisconnected) return <Text>Disconnected</Text>
+    return (
+      <>
+        <Box p='2'>
+          <Text>Connected  {utils.cutAddress(address ?? '')} address</Text>
+        </Box>
+        <Box>
+          <ListFunctions />
+        </Box>
+      </>
+    )
   }
-  async function subtract() {
-    console.log("hello world");
-    setNumber(number - 1);
-  }
+
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      flexDirection="column"
-      alignItems="center"
-      p="5"
+    <Grid
+      templateAreas={`"header header"
+                  "nav main"
+                  "nav footer"`}
+      gridTemplateRows={'50px 1fr 30px'}
+      gridTemplateColumns={'150px 1fr'}
+      h='200px'
+      gap='1'
+      color='blackAlpha.700'
+      fontWeight='bold'
+      p='5'
     >
-      <Box p="2">
+      <GridItem border='1px' pl='2' area={'header'}>
         <Header />
-      </Box>
-      <Box p="2">
-        <ExampleComponent />
-      </Box>
-      <Box p="2">
-        <ConnectKitButton />
-      </Box>
-    </Box>
+      </GridItem >
+      <GridItem border='1px' pl='2' area={'nav'}>
+        Nav
+      </GridItem>
+      <GridItem border='1px' pl='2' area={'main'}>
+        <Grid templateColumns='repeat(2, 1fr)' gap={4}>
+          <GridItem w='100%'>
+            <Box
+              display="flex"
+              justifyContent="center"
+              flexDirection="column"
+              alignItems="center"
+              p="5"
+            >
+              <PeopleTable />
+            </Box>
+          </GridItem>
+          <GridItem w='100%'  >
+            <Box
+              display="flex"
+              justifyContent="center"
+              flexDirection="column"
+              alignItems="center"
+              p="5"
+            >
+
+              <ConnectKitButton />   {/* ConnectKitButton was made by connect kit , check the import above*/}
+
+              <IfConnected />        {/* IfConnected component show or not the function if the user is connected. Check above */}
+            </Box>
+          </GridItem>
+        </Grid>
+      </GridItem>
+      <GridItem border='1px' pl='2' area={'footer'}>
+        <Text fontSize='xs'> EncodeSolidity Bootcamp - Project week 5 - Group 4 </Text>
+      </GridItem>
+    </Grid>
   );
 }

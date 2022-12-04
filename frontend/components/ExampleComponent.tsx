@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 //ui import
 import {  Button, Text } from "@chakra-ui/react";
-export default function Home() {
+export default function ExampleComponent() {
     const [number, setNumber] = useState(1);
     async function add() {
         console.log("hello world");
