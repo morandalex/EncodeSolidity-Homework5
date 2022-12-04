@@ -82,6 +82,7 @@ contract Lottery is Ownable {
     }
 
     /// @notice Call the bet function `times` times
+    /// @param times Number of bets to place
     // function betMany(uint256 times) public {
     //     require(times > 0);
     //     while (times > 0) {
@@ -91,17 +92,19 @@ contract Lottery is Ownable {
     // }
 
     function betMany(uint256 times) public whenBetsOpen {
-        require(times > 0);
-        ownerPool += times * betFee;
-        prizePool += times * betPrice;
-
-        for (uint256 index = 0; index < times; index++) {
+        require(times > 1, "To use when placing several bets at once, use bet() for single bet");
+        uint256 _betFee = times * betFee;
+        uint256 _betPrice = times * betPrice;
+        ownerPool += _betFee;
+        prizePool += _betPrice;
+        while (times > 0) {
             _slots.push(msg.sender);
+            times--;
         }
         paymentToken.transferFrom(
             msg.sender,
             address(this),
-            times * (betPrice + betFee)
+            _betFee + _betPrice
         );
     }
 
@@ -126,7 +129,7 @@ contract Lottery is Ownable {
         randomNumber = block.difficulty;
     }
 
-    /// @notice Withdraw `amount` from that accounts prize pool
+    /// @notice Withdraw `amount` from that account prize pool
     function prizeWithdraw(uint256 amount) public {
         require(amount <= prize[msg.sender], "Not enough prize");
         prize[msg.sender] -= amount;
