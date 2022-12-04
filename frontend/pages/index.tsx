@@ -4,7 +4,7 @@ import {
   ConnectKitButton,
 } from "connectkit";
 import { useProvider, useSigner } from "wagmi";
-import {  } from "../../hardhat/typechain-types";
+import { Lottery__factory, LotteryToken__factory  } from "../../hardhat/typechain-types";
 //ui import
 import { Box, Heading, Button, Text } from "@chakra-ui/react";
 //custom components import
