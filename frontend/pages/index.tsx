@@ -1,30 +1,28 @@
+//library import
 import React, { useState } from 'react';
-import { Box, Heading, Button } from "@chakra-ui/react";
-
 import {
-  ConnectKitProvider,
   ConnectKitButton,
-  getDefaultClient,
 } from "connectkit";
 import { useProvider, useSigner } from "wagmi";
-
-import { Example, Example__factory } from "../../hardhat/typechain-types";
-
-
-
+import {  } from "../../hardhat/typechain-types";
+//ui import
+import { Box, Heading, Button, Text } from "@chakra-ui/react";
+//custom components import
+import Header from '../components/Header'
+import ExampleComponent from '../components/ExampleComponent'
 import ethers from "ethers";
-
 export default function Home() {
   const provider = useProvider();
   const signer = useSigner();
   const [number, setNumber] = useState(1);
-
-  async function test() {
-    alert("hello world");
+  async function add() {
     console.log("hello world");
     setNumber(number + 1);
   }
-
+  async function subtract() {
+    console.log("hello world");
+    setNumber(number - 1);
+  }
   return (
     <Box
       display="flex"
@@ -34,15 +32,13 @@ export default function Home() {
       p="5"
     >
       <Box p="2">
-        <Heading>
-          Encode solidity frontend for lottery - project week 5 - group 4
-        </Heading>
+        <Header />
       </Box>
       <Box p="2">
-        <ConnectKitButton></ConnectKitButton>
+        <ExampleComponent />
       </Box>
       <Box p="2">
-        <Button onClick={test}></Button> {number}
+        <ConnectKitButton />
       </Box>
     </Box>
   );
