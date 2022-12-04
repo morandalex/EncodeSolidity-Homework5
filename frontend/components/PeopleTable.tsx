@@ -50,7 +50,7 @@ export default function PeopleTable() {
                     {/* this is an example on how to render an array in a react component. We use es javascript function .map */}
                     {peopleData && peopleData.map((item,i) => {
                         return (
-                            <Tr key="i"> {/* we have to specify the id of the ocmponent , if not , react will throw an error in console*/}
+                            <Tr key={i}> {/* we have to specify the id of the ocmponent , if not , react will throw an error in console*/}
                                 <Td>
                                     <Link href={item.website} isExternal>
                                         <ExternalLinkIcon mx='2px' /> {item.name}</Link></Td>

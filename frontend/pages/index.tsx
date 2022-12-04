@@ -24,19 +24,29 @@ export default function Home() {
 
   const { address, isConnecting, isDisconnected } = useAccount()
 
+  const Loading = () =>{
+    if (isConnecting){
+      return <>Loading ...</>
+    } else {
+    return <></>
+    }
+  }
   const IfConnected = () => {
-    if (isConnecting) return <Text>Connecting…</Text>
-    if (isDisconnected) return <Text>Disconnected</Text>
-    return (
-      <>
-        <Box p='2'>
-          <Text>Connected  {utils.cutAddress(address ?? '')} address</Text>
-        </Box>
-        <Box>
-          <ListFunctions />
-        </Box>
-      </>
-    )
+   if (!isDisconnected && !isConnecting){
+   return (
+     <>
+       <Box p='2'>
+         <Text>Connected  {utils.cutAddress(address  ?? '')} address</Text>
+       </Box>
+       <Box>
+         <ListFunctions />
+       </Box>
+     </>
+   )
+   }
+   else {
+    return <></>
+   }
   }
 
   return (
@@ -83,6 +93,7 @@ export default function Home() {
               <ConnectKitButton />   {/* ConnectKitButton was made by connect kit , check the import above*/}
 
               <IfConnected />        {/* IfConnected component show or not the function if the user is connected. Check above */}
+              <Loading/>
             </Box>
           </GridItem>
         </Grid>
