@@ -20,7 +20,7 @@ export default function PeopleTable() {
         {
             name: "Marcello Rigotti",
             website: "",
-            githubHandle: "",
+            githubHandle: "marcellorigotti",
             address: "0x80d0430c7d1ed613ea30c02663cc9ce5bbc389a8"
         },
         {
