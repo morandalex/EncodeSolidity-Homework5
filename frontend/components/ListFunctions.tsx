@@ -284,7 +284,101 @@ export default function ListFunctions() {
 
 
     }
+    async function claimPrize() {
+        if (
+            signerLoaded &&
+            signer &&
+            lotteryContractAddress != "" &&
+            lotteryTokenContractAddress != ""
+        ) {
+            const lotteryContractFactory = new Lottery__factory(signer);
+            const lotteryContract = lotteryContractFactory.attach(
+                lotteryContractAddress ?? ""
+            );
 
+
+            try {
+                const prize = await lotteryContract.prize(signer.getAddress());
+
+                const tx = await lotteryContract.connect(signer).prizeWithdraw(prize);
+                const receipt = await tx.wait();
+                addToTxList(receipt.transactionHash, 'claimPrize')
+
+            } catch (e: any) {
+                alert(e);
+            }
+        } else {
+            console.log("error");
+        }
+        
+    }
+
+    async function claimOwnerFees() {
+        if (
+            signerLoaded &&
+            signer &&
+            lotteryContractAddress != "" &&
+            lotteryTokenContractAddress != ""
+        ) {
+            const lotteryContractFactory = new Lottery__factory(signer);
+            const lotteryContract = lotteryContractFactory.attach(
+                lotteryContractAddress ?? ""
+            );
+
+
+            try {
+                const prize = await lotteryContract.ownerPool();
+
+                const tx = await lotteryContract.connect(signer).ownerWithdraw(prize);
+                const receipt = await tx.wait();
+                addToTxList(receipt.transactionHash, 'claimOwnerFees')
+
+            } catch (e: any) {
+                alert(e);
+            }
+        } else {
+            console.log("error");
+        }
+        
+    }
+
+    async function burnTokens(index: string, amount: string) {
+        if (
+            signerLoaded &&
+            signer &&
+            lotteryContractAddress != "" &&
+            lotteryTokenContractAddress != ""
+        ) {
+            const lotteryContractFactory = new Lottery__factory(signer);
+            const tokenContractFactory = new LotteryToken__factory(signer);
+
+            const lotteryContract = lotteryContractFactory.attach(
+                lotteryContractAddress ?? ""
+            );
+            const tokenContract = tokenContractFactory.attach(
+                lotteryTokenContractAddress ?? ""
+            );
+
+
+            try {
+                const addr = await signer.getAddress();
+                const b = await tokenContract.balanceOf(addr);
+                const allowTx = await tokenContract.connect(signer).approve(lotteryContract.address, b);
+                const receipt = await allowTx.wait();
+                addToTxList(receipt.transactionHash, 'approve')
+                const burnTx = await lotteryContract.connect(signer).returnTokens(b);
+                const receipt1 = await burnTx.wait();
+                addToTxList(receipt1.transactionHash, 'burnTokens')
+
+
+            } catch (e: any) {
+                alert(e);
+            }
+        } else {
+            console.log("error");
+        }
+        
+      }
 
 
 
@@ -314,6 +408,7 @@ export default function ListFunctions() {
                         p="5">
                         <Text>Owner functions</Text>
                         <Button m='2' onClick={openBets}>openBets()</Button>
+                        <Button m='2' onClick={claimOwnerFees}>claimOwnerFees()</Button>
                     </Box>
 
                     <Box
@@ -329,6 +424,9 @@ export default function ListFunctions() {
                         <Button m='2' onClick={myBalance}>mybalance()</Button>
                         <Button m='2' onClick={bet}>bet()</Button>
                         <Button m='2' onClick={closeLottery}>closeLottery()</Button>
+                        <Button m='2' onClick={claimPrize}>claimPrize()</Button>
+                        <Button m='2' onClick={burnTokens}>burnTokens()</Button>
+
                     </Box>
 
                     <Box
