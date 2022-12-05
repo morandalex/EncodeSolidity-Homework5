@@ -1,3 +1,4 @@
+const fs = require('fs');
 import { ethers } from "hardhat";
 import { Lottery__factory } from "../typechain-types";
 import * as dotenv from "dotenv";
@@ -34,6 +35,7 @@ async function main() {
   console.log(
     `The payment token contract has been deployed at address ${paymentToken.address}`
   );
+  fs.writeFileSync('deploy_GOERLI.txt', `NEXT_PUBLIC_GOERLI_LOTTERY_CONTRACT="${lotteryContract.address}"`  + '\n' + `NEXT_PUBLIC_GOERLI_PAYMENT_TOKEN_CONTRACT="${paymentToken.address}"`  );
 }
 
 main().catch((err) => {

@@ -1,8 +1,9 @@
 {
   "name": "encode-solidity-homework-5",
   "scripts":{
-    "chain":"yarn hardhat chain",
-    "deployLocal":"yarn hardhat run ./scripts/deployLocal.ts"
+    "chain":"yarn hardhat node",
+    "deployLocal":"yarn hardhat run ./scripts/deployLocal.ts",
+    "deployGoerli":"yarn hardhat run ./scripts/deploy.ts"
   },
   "packageManager": "yarn@3.3.0",
   "devDependencies": {

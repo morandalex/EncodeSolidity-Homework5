@@ -37,7 +37,7 @@ async function main() {
     `The payment token contract has been deployed at address ${paymentToken.address}`
     );
 
-    fs.writeFileSync('local_deploy.txt', `NEXT_PUBLIC_LOTTERY_CONTRACT="${lotteryContract.address}"`  + '\n' + `NEXT_PUBLIC_PAYMENT_TOKEN_CONTRACT="${paymentToken.address}"`  );
+    fs.writeFileSync('deploy_LOCAL.txt', `NEXT_PUBLIC_HARDHAT_LOTTERY_CONTRACT="${lotteryContract.address}"`  + '\n' + `NEXT_PUBLIC_HARDHAT_PAYMENT_TOKEN_CONTRACT="${paymentToken.address}"`  );
 }
 
 main().catch((err) => {

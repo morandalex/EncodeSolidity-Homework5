@@ -71,7 +71,7 @@ export default function ListFunctions() {
                 const openBetsTx = await lotteryContract.openBets(currentBlock.timestamp + Number(DURATION));
                 const receipt = await openBetsTx.wait();
                 console.log(`Bets opened (${receipt.transactionHash})`);
-
+                if(receipt.transactionHash){
                 setTxList(
                     oldTxList => [
                         ...oldTxList,
@@ -80,7 +80,7 @@ export default function ListFunctions() {
                             tx: receipt.transactionHash
                         }
                     ]);
-
+                }
 
 
             } catch (e: any) {
