@@ -30,6 +30,9 @@ Console output:
 > <br>
 > The payment token contract has been deployed at address 0xa16E02E87b7454126E5E10d957A927A7F5B5d2be.
 
+Goerli:
+Lottery contract address: 0xdCF8ACD74dE87ecD1d75228fD95E9B92227E696A
+Token contract address: 0x8320191294d2Bc754AaaB1Ce2b7aEFb50700c5Df
 
 ## React frontend
 
