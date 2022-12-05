@@ -352,7 +352,7 @@ export default function ListFunctions() {
                                 return (
                                    
 
-                                        <Link key={i} href={"https://goerli.etherscan.io/tx/" + item.tx} isExternal ><Text>  {appSdk.cutAddress(item.funName)} : {appSdk.cutAddress(item.tx)}</Text> </Link>
+                                        <Link key={i} href={"https://goerli.etherscan.io/tx/" + item.tx} isExternal ><Text>  {item.funName} : {appSdk.cutAddress(item.tx)}</Text> </Link>
                                    
                                 )
 
