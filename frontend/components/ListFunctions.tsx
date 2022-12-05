@@ -58,7 +58,7 @@ export default function ListFunctions() {
     }, [chain])  //if we put a variable inside this array useEffect will recompute itself
 
 
-    async function bet() {
+    async function openBets() {
         if (signerLoaded && signer && lotteryContractAddress != '' && lotteryTokenContractAddress != '') {
 
             const lotteryContractFactory = new Lottery__factory(signer);
@@ -105,7 +105,7 @@ export default function ListFunctions() {
                     <Text>Chain  : {chain && chain.name}</Text>
                     <Text> Lottery Contract : {utils.cutAddress(lotteryContractAddress)}</Text>
                     <Text>Lottery token Contract : {utils.cutAddress(lotteryTokenContractAddress)}</Text>
-                    <Button onClick={bet}>bet()</Button>
+                    <Button onClick={openBets}>openBets()</Button>
                 </Box>
                 <Box
                     display="flex"
